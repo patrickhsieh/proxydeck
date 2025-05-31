@@ -1,6 +1,6 @@
 {
   "name": "proxydeck",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "A cross-browser extension that provides a streamlined, one-click solution for managing proxy connections.",
   "main": "babel.config.js",
   "scripts": {

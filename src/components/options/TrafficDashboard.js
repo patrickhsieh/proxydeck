@@ -11,6 +11,7 @@ const TrafficDashboard = () => {
   const [selectedWindow, setSelectedWindow] = useState('1min');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isTooltipOpen, setIsTooltipOpen] = useState(false);
   const [trafficData, setTrafficData] = useState({
     data: [],
     stats: {
@@ -327,22 +328,20 @@ const TrafficDashboard = () => {
           <h2 className="text-xl font-semibold flex items-center gap-2">
             Traffic Monitor
             {browserCapabilities.browser.isChrome && (
-              <Tooltip>
+              <Tooltip delayDuration={0} open={isTooltipOpen} onOpenChange={setIsTooltipOpen}>
                 <TooltipTrigger asChild>
                   <span className="text-xs text-muted-foreground/70 font-normal cursor-help border-b border-dashed border-muted-foreground/30 hover:border-muted-foreground/60 transition-colors">
                     (estimated)
                   </span>
                 </TooltipTrigger>
-                <TooltipContent side="bottom" className="max-w-sm">
-                  <div className="space-y-3">
-                    <div className="flex items-start gap-2">
-                      <span className="text-amber-400 text-sm">⚠️</span>
-                      <div>
-                        <div className="font-medium">Numbers may be lower than actual usage</div>
-                        <div className="text-xs text-muted-foreground mt-1">
-                          Chrome extensions cannot access actual response sizes for many sites (especially YouTube, Netflix, and streaming services) because they rely on Content-Length headers which are often missing or inaccurate on sites with compressed content.
-                        </div>
-                      </div>
+                <TooltipContent className="max-w-xs p-3">
+                  <div className="flex items-start gap-2">
+                    <span className="text-amber-500">⚠️</span>
+                    <div className="space-y-1">
+                      <p className="font-medium text-sm">Traffic estimates only</p>
+                      <p className="text-xs text-muted-foreground leading-relaxed">
+                        Chrome extensions can't measure exact traffic for streaming sites (YouTube, Netflix, etc.) due to missing Content-Length headers.
+                      </p>
                     </div>
                   </div>
                 </TooltipContent>
